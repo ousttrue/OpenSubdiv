@@ -1,4 +1,7 @@
 kernels = [
+    'patchBasis.h',
+    'patchBasisTypes.h',
+    # dx
     'hlslComputeKernel.hlsl',
     'hlslPatchCommon.hlsl',
     'hlslPatchCommonTess.hlsl',
@@ -8,10 +11,17 @@ kernels = [
     'hlslPatchGregoryBasis.hlsl',
     'hlslPatchGregoryTriangle.hlsl',
     'hlslPatchLegacy.hlsl',
-    #
-    'patchBasis.h',
-    'patchBasisTypes.h',
+    # gl
+    'glslPatchCommon.glsl',
+    'glslPatchCommonTess.glsl',
+    'glslPatchBoxSplineTriangle.glsl',
+    'glslPatchBSpline.glsl',
+    'glslPatchGregory.glsl',
+    'glslPatchGregoryBasis.glsl',
+    'glslPatchGregoryTriangle.glsl',
+    'glslPatchLegacy.glsl',
 ]
+
 gens = []
 foreach k : kernels
     sp = k.split('.')
@@ -39,8 +49,16 @@ osd_lib = static_library(
         'd3d11PatchTable.cpp',
         'd3d11VertexBuffer.cpp',
         'hlslPatchShaderSource.cpp',
+        # gl
+        'cpuGLVertexBuffer.cpp',
+        'glLegacyGregoryPatchTable.cpp',
+        'glPatchTable.cpp',
+        'glVertexBuffer.cpp',
+        'glslPatchShaderSource.cpp',
     ] + gens,
-    # include_directories: osd_inc,
+    dependencies: [
+        glLoader_dep,
+    ],
 )
 osd_dep = declare_dependency(
     link_with: osd_lib,

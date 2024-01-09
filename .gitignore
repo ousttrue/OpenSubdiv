@@ -9,3 +9,6 @@ shim.py
 
 /prefix/
 
+/subprojects/*
+!/subprojects/glfw.wrap
+

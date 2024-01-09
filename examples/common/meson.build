@@ -10,7 +10,7 @@ common = [
 ]
 
 common_dx11_lib = static_library(
-    'examples_common_dx11_obj',
+    'examples_common_dx11',
     common + [
         'd3d11ControlMeshDisplay.cpp',
         'd3d11Hud.cpp',
@@ -33,3 +33,27 @@ common_dx11_dep = declare_dependency(
     link_with: common_dx11_lib,
     dependencies: [d3d11_dep],
 )
+
+glfw_dep = dependency('glfw3', default_options: ['install=true'])
+
+common_gl_lib = static_library(
+    'examples_common_gl',
+    common + [
+        'glControlMeshDisplay.cpp',
+        'glHud.cpp',
+        'glUtils.cpp',
+        'glShaderCache.cpp',
+    ],
+    dependencies: [
+        opensubdiv_dep,
+        glLoader_dep,
+        glfw_dep,
+    ],
+)
+
+common_gl_dep = declare_dependency(
+    link_with: common_gl_lib,
+    dependencies: [glfw_dep],
+)
+
+

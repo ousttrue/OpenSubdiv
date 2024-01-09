@@ -14,7 +14,8 @@ add_project_arguments(
 opensubdiv_inc = include_directories('.')
 
 subdir('tools/stringify')
-subdir('regression/common')
+subdir('glLoader')
 subdir('opensubdiv')
+subdir('regression/common')
 subdir('examples')
 
